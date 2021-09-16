@@ -23,16 +23,13 @@ namespace PersonApi.Models
         }
 
         public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<Normalize> Normalizes { get; set; }
+        
         public virtual DbSet<Person> Persons { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //if (!optionsBuilder.IsConfigured)
-            //{
-            //   optionsBuilder.UseSqlServer(_configuration["ConnectionStrings:PersonDatabase"]);
-            //}
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -67,74 +64,7 @@ namespace PersonApi.Models
                     .HasConstraintName("FK_Account_Person");
             });
 
-            modelBuilder.Entity<Normalize>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("Normalize");
-
-                entity.Property(e => e.AccountCode).HasColumnName("account_code");
-
-                entity.Property(e => e.AccountNumber)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("account_number");
-
-                entity.Property(e => e.Amount)
-                    .HasColumnType("money")
-                    .HasColumnName("amount");
-
-                entity.Property(e => e.CaptureDate)
-                    .HasColumnType("datetime")
-                    .HasColumnName("capture_date");
-
-                entity.Property(e => e.Code).HasColumnName("code");
-
-                entity.Property(e => e.Description)
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .HasColumnName("description");
-
-                entity.Property(e => e.Expr4)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Expr5)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Expr6)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.IdNumber)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("id_number");
-
-                entity.Property(e => e.Name)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("name");
-
-                entity.Property(e => e.OutstandingBalance)
-                    .HasColumnType("money")
-                    .HasColumnName("outstanding_balance");
-
-                entity.Property(e => e.PersonCode).HasColumnName("person_code");
-
-                entity.Property(e => e.Surname)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("surname");
-
-                entity.Property(e => e.TransactionDate)
-                    .HasColumnType("datetime")
-                    .HasColumnName("transaction_date");
-            });
+            
 
             modelBuilder.Entity<Person>(entity =>
             {

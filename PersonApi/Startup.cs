@@ -24,8 +24,15 @@ namespace PersonApi
         {
             
             services.AddControllers();
-            //services.AddEntityFrameworkSqlServer();
-            
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200");
+                    });
+            });
+
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
@@ -51,6 +58,8 @@ namespace PersonApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 

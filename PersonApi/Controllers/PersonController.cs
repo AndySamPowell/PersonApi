@@ -14,11 +14,11 @@ namespace PersonApi.Controllers
     public class PersonController : ControllerBase
     {
         private readonly IPersonRepository _personRepository;
-        private readonly IAccountRepository _accountRepository;
-        public PersonController(IPersonRepository personRepository, IAccountRepository accountRepository)
+        
+        public PersonController(IPersonRepository personRepository)
         {
             _personRepository = personRepository;
-            _accountRepository = accountRepository;
+            
         }
 
         [HttpGet]
